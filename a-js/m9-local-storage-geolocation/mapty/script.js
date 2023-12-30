@@ -243,6 +243,11 @@ class App {
         this.workouts = data;
         this.workouts.forEach(w => this._renderWorkout(w))
     }
+    reset(){
+        localStorage.removeItem('workouts');
+        //reload the page
+        location.reload();
+    }
 }
 
 const app = new App();
