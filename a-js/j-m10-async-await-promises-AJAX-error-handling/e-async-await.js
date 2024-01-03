@@ -2,6 +2,10 @@
 // "fulfilled"	a result value
 // "rejected"	an error object
 
+/*
+# in modules (ES2020) we can now use await keyword outside of a async fun 
+# which is called top level await
+*/
 
 function whereAmI1() {
     return new Promise(function (resolve, reject) {
