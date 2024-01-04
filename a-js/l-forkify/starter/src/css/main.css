@@ -479,6 +479,7 @@ body {
 
 .recipe {
   background-color: #f9f5f3;
+  overflow: scroll;
 }
 .recipe__fig {
   height: 32rem;

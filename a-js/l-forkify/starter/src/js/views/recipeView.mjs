@@ -1,14 +1,16 @@
+import View from './View.mjs';
+
+
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #successMessage = `Start by searching for a recipe or an ingredient. Have fun!`;
     #errorMessage = 'could\'t find this perticular recipe';
-    #data;
+
+
     render(data) {
-        this.#data = data;
         const markup = this.#generateMarkup(data)
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-
     }
 
     #clear() {
