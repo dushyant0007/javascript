@@ -1,13 +1,12 @@
-import View from './View.mjs';
-
 
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #successMessage = `Start by searching for a recipe or an ingredient. Have fun!`;
     #errorMessage = 'could\'t find this perticular recipe';
-
+    #data;
 
     render(data) {
+        this.#data = data;
         const markup = this.#generateMarkup(data)
         this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
@@ -26,6 +25,57 @@ class RecipeView {
         // );
     }
 
+    addHandlerUpdateServings(handler) {
+        this.#parentElement.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn--update-servings');
+            if (!btn) return;
+            const updateTo = +btn.dataset.updateTo
+            if (updateTo > 0)
+                handler(updateTo);
+        })
+    }
+
+    addHandlerAddBookmark(handler){
+        this.#parentElement.addEventListener('click',function(e){
+            const btn = e.target.closest('.btn--bookmark');
+
+            if(!btn) return;
+            
+            handler();
+        })
+    }
+
+    update(data) {
+        if (!data || (Array.isArray(data) && data.length === 0))
+            return this.renderError();
+
+        this.#data = data;
+        const newMarkup = this.#generateMarkup(data);
+
+        //this method will then convert that string int real DOM Node object (virtual DOM)
+        const newDOM = document.createRange().createContextualFragment(newMarkup)
+
+        const newElements = Array.from(newDOM.querySelectorAll('*'));
+        const curElements = Array.from(this.#parentElement.querySelectorAll('*'));
+
+        newElements.forEach((newEl, i) => {
+            const curEl = curElements[i];
+
+            //update - change - text
+            if (!newEl.isEqualNode(curEl) &&
+                newEl.firstChild?.nodeValue.trim() !== '') {
+                curEl.textContent = newEl.textContent;
+            }
+
+            //update - change - attributes
+            if (!newEl.isEqualNode(curEl)) {
+                Array.from(newEl.attributes).forEach(
+                    attr => curEl.setAttribute(attr.name, attr.value)
+                );
+            }
+        })
+    }
+
     renderSpinner(parentEl = this.#parentElement) {
         const markup = `
       <div class="spinner">
@@ -38,7 +88,7 @@ class RecipeView {
         parentEl.insertAdjacentHTML('afterbegin', markup);
     }
 
-    renderError(message=this.#errorMessage) {
+    renderError(message = this.#errorMessage) {
         const markup = `
         <div class="error">
             <div>
@@ -50,11 +100,11 @@ class RecipeView {
         </div>
         `
         this.#clear();
-        this.#parentElement.insertAdjacentHTML('afterbegin',markup)
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup)
     }
 
-    renderMessage(message=this.#successMessage){
-       const markup = `
+    renderMessage(message = this.#successMessage) {
+        const markup = `
        <div class="recipe">
             <div class="message">
             <div>
@@ -64,8 +114,11 @@ class RecipeView {
             </div>
             <p>${message}</p>
         </div>
-       ` 
+       `
+       this.#clear();
+       this.#parentElement.insertAdjacentHTML('afterbegin', markup)
     }
+
 
     #generateMarkup(recipe) {
         return `
@@ -92,12 +145,12 @@ class RecipeView {
                 <span class="recipe__info-text">servings</span>
     
                 <div class="recipe__info-buttons">
-                  <button class="btn--tiny btn--increase-servings">
+                  <button class="btn--tiny btn--update-servings" data-update-to="${this.#data.servings - 1}">
                     <svg>
                       <use href="src/img/icons.svg#icon-minus-circle"></use>
                     </svg>
                   </button>
-                  <button class="btn--tiny btn--increase-servings">
+                  <button class="btn--tiny btn--update-servings" data-update-to="${this.#data.servings + 1}">
                     <svg>
                       <use href="src/img/icons.svg#icon-plus-circle"></use>
                     </svg>
@@ -110,9 +163,9 @@ class RecipeView {
                   <use href="src/img/icons.svg#icon-user"></use>
                 </svg>
               </div>
-              <button class="btn--round">
+              <button class="btn--round btn--bookmark">
                 <svg class="">
-                  <use href="src/img/icons.svg#icon-bookmark-fill"></use>
+                  <use href="src/img/icons.svg#icon-bookmark${this.#data.bookmarked ? '-fill' : ''}"></use>
                 </svg>
               </button>
             </div>
@@ -133,18 +186,6 @@ class RecipeView {
                     </div>
                   </li>
                 `).join('')}
-    
-    
-                <li class="recipe__ingredient">
-                  <svg class="recipe__icon">
-                    <use href="src/img/icons.svg#icon-check"></use>
-                  </svg>
-                  <div class="recipe__quantity">0.5</div>
-                  <div class="recipe__description">
-                    <span class="recipe__unit">cup</span>
-                    ricotta cheese
-                  </div>
-                </li>
               </ul>
             </div>
     

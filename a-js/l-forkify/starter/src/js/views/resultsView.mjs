@@ -3,9 +3,10 @@ class ResultsView {
     #parentElement = document.querySelector('.results');
     #successMessage = `Start by searching for a recipe or an ingredient. Have fun!`;
     #errorMessage = 'could\'t find this perticular recipe';
-
+    #data;
 
     render(data) {
+        this.#data = data;
         const markup = this.#generateMarkup(data);
         this.#clear();
         if(!markup){
@@ -17,6 +18,34 @@ class ResultsView {
 
     #clear() {
         this.#parentElement.innerHTML = '';
+    }
+
+    update(data){
+        this.#data = data;
+        const newMarkup = this.#generateMarkup(data);
+  
+        //this method will then convert that string int real DOM Node object (virtual DOM)
+        const newDOM = document.createRange().createContextualFragment(newMarkup)
+  
+        const newElements =  Array.from(newDOM.querySelectorAll('*'));
+        const curElements = Array.from(this.#parentElement.querySelectorAll('*'));
+  
+        newElements.forEach((newEl,i)=>{
+          const curEl = curElements[i];
+  
+          //update - change - text
+          if(!newEl.isEqualNode(curEl) &&
+           newEl.firstChild?.nodeValue.trim() !== ''){
+            curEl.textContent = newEl.textContent;
+          }
+  
+          //update - change - attributes
+          if(!newEl.isEqualNode(curEl)){
+            Array.from(newEl.attributes).forEach(
+              attr => curEl.setAttribute(attr.name,attr.value)
+            );
+          }
+        })
     }
 
     renderSpinner(parentEl = this.#parentElement) {
@@ -67,9 +96,11 @@ class ResultsView {
     }
 
     #generateMarkupPreview(rec){
+        // window.location = page-url
+        const id = window.location.hash.slice(1)
         return`
             <li class="preview">
-                <a class="preview__link preview__link--active" href="#${rec.id}">
+                <a class="preview__link ${rec.id == id ? 'preview__link--active': ''}" href="#${rec.id}">
                 <figure class="preview__fig">
                     <img src="${rec.image_url}" alt="Test" />
                 </figure>
