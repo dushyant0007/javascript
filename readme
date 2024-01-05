@@ -1,0 +1,5 @@
+npm init
+npm i parcel -D
+"start": "parcel index.html",
+"build": "parcel build index.html"
+npm start
