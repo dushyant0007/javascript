@@ -1,7 +1,7 @@
 {
   "name": "starter",
   "version": "1.0.0",
-  "description": "",
+  "description": "npm init npm i parcel -D \"start\": \"parcel index.html\", \"build\": \"parcel build index.html\" npm start",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
@@ -15,4 +15,5 @@
   "dependencies": {
     "sass": "^1.69.6"
   }
+  
 }
