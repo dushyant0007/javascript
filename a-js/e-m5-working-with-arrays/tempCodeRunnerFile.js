@@ -1,1 +1,0 @@
-Start of loop maxVal

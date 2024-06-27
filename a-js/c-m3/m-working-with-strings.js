@@ -142,4 +142,13 @@ const message2 = 'Bad weather...';
 console.log(message2.repeat(5));
 // Prints: Bad weather...Bad weather...Bad weather...Bad weather...Bad weather...
 
- 
+//convert to camel_case
+let mon = 'test_one \n   Some_variable \n victoria_QUEEN';
+const lines = mon.split('\n');
+console.log(lines);
+for (const line of lines){
+   let [first,second]  = line.toLowerCase().trim().split('_');
+   const output = `${first}${second.replace(second[0],second[0].toUpperCase())}`;
+   console.log(output);
+}
+

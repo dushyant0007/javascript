@@ -42,7 +42,7 @@ createBookingNew('LH123', 2, 400); // Prints: {flightNum: "LH123", numPassengers
 
 // But another thing that we can do with default parameters is use the value of the previously supplied params to calculate them
 // Note how we are using the value of the numPassengers to calculate the price
-const createBookingNew2 = function (flightNum, numPassengers = 1, price = 199.99 * numPassengers) {
+const createBookingNew2 = function (flightNum, numPassengers = 1, price = 199.99 * numPassengers /* price = fun_price(numPassengers)*/) {
 
     const newBooking = {
         flightNum,

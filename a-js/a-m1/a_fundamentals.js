@@ -8,6 +8,11 @@
 
 // We can log multiple values as well
 console.log("Hi", "there", 21*10); // Prints: "Hi there 210"
+console.error("This is how you print error ")
+console.warn(" warning time")
+console.info('This is imp info')
+//alert , prompt, confirm
+
 
 // When a variable is first declared in JS, it is 'undefined' and it's type is also 'undefined'.
 // So basically 'undefined' is BOTH the value as well as the type of the value!!
@@ -74,25 +79,20 @@ middleName = "Vesuvius";
 let xt = y = 25 - 10 - 5;
 
 
-// You can also use template strings to write multi-line strings
 
-console.log(`This is a
+// *********************************************************************************************************************
+// String and Template Literals
+// *********************************************************************************************************************
+
+//multi-line strings
+console.log(`This is a ${xt}
     multiline string 
     in JavaScript`);
 
 
-// -----------------------------------
-
-const a = 5;
-// a = 9;//Error
-// a = "String";//Error
-
-console.log(y+''+a); //205
-console.log(y+a);//25
-
-// -----------------------------------
-
-// DATA-TYPE
+// *********************************************************************************************************************
+// Data - Types
+// *********************************************************************************************************************
 
 // String
 // Number -> range -(2^53 - 1) to (253 - 1) -> stored as 64-bit floating-point values
@@ -107,7 +107,7 @@ console.log(y+a);//25
 
 // Object -> let student = {}; //key-value pairs of collection of data
 // Iterables -> arrays, strings,sets,map, but not sets
-// -----------------------------------
+
 
 //! Symbols are immutable (cannot be changed) and are unique. 
 
@@ -130,12 +130,9 @@ let person = {
 
 console.log(person); // { name: 'Jack', class: 'first', [Symbol(id)]: 123 }
 
-//----------------------------------
-
-let i;
-console.log(i)//undefined
-
-// -----------------------------------
+// *********************************************************************************************************************
+// Bitwise Operators
+// *********************************************************************************************************************
 
 // &&	Logical AND: true if both the operands are true, else returns false	x && y
 // ||	Logical OR: true if either of the operands is true; returns false if both are false	x || y
@@ -150,7 +147,10 @@ console.log(i)//undefined
 // >>	Sign-propagating right shift
 // >>>	Zero-fill right shift // make sign_bit 0
 
-//---------
+// *********************************************************************************************************************
+// Nullish coalescing Operator (??)
+// *********************************************************************************************************************
+
 console.log('Nullish coalescing Operator (??)')
 let no_gusts = 0;
 
@@ -201,17 +201,6 @@ result = 4 + null;
 console.log(result);  // 4
 
 
-// -----------
-
-// this conversion js do automatically in comparison operations 
-
-console.log('falsy values --- values which are not false but become false when we try to convert them bool')
-//There are  5  falsy values - 0,'',undefined,null,NaN
-// anything else convert to true 
-
-console.log(Boolean(''),Boolean(undefined),Boolean(NaN));  // false
-console.log(Boolean(0),Boolean(null));
-
 
 // ------------
 
@@ -251,15 +240,27 @@ console.log(result); // "324"
 result = true.toString();
 console.log(result); // "true"
 
-// ---------------------------------
+// *********************************************************************************************************************
+// Truthy and Falsy Values
+// *********************************************************************************************************************
 
-console.error("This is how you print error ")
-console.warn(" warning time")
-console.info('This is imp info')
+// Truthy and Falsy Values
 
-//alert , prompt, confirm
+// this conversion js do automatically in comparison operations 
 
-// ---------------------------------
+console.log('falsy values --- values which are not false but become false when we try to convert them bool')
+//There are  5  falsy values - 0,'',undefined,null,NaN
+// anything else convert to true 
+
+console.log(Boolean(''),Boolean(undefined),Boolean(NaN));  // false
+console.log(Boolean(0),Boolean(null));
+
+
+
+// *********************************************************************************************************************
+// Equality operators
+// *********************************************************************************************************************
+
 
 // loose-equal operator
 console.log(18=='18') // true (it perform type conversion)
@@ -274,6 +275,62 @@ console.log(to,too)
 //Pointing to different to memory locations
 console.log(to===too)
 
+// *********************************************************************************************************************
+// switch statement
+// *********************************************************************************************************************
 
-// -----------
+let day = 'tuesday';
 
+switch (day) {
+
+    // Note that the braces are not required here.
+    case "monday": {
+        console.log("Mondays, amirite?");
+        console.log("Where is the coffee");
+        break;
+    }
+
+    case "tuesday": {
+
+    }
+
+    case "wednesday": {
+        // This code will be executed for both tuesday and wednesday
+        console.log("More coffee");
+        break;
+    }
+
+    default:
+        console.log("Not a valid date");
+
+}
+
+// *********************************************************************************************************************
+// Statement and Expressions
+// *********************************************************************************************************************
+
+// A statement is something that produces a value
+// 4 + 5 is an expression
+// false is and expression
+// A number like 1998 on it's own is an expression
+// On the other hand..this if-else block is a statement. That is why it is called an if-else statement. It does not produce a value.
+if (23 > 10) {
+    console.log("23 is bigger");
+} else {}
+
+// The reason this is important is that Template Strings can only have expressions, not statements
+// What this means is that: within the ${}, there should be something that produces a value, so an expression, and not a statement
+console.log(`Today is ${day}`);
+
+// *********************************************************************************************************************
+// Ternary Operator
+// *********************************************************************************************************************
+
+// Since this is an operator and operators always produce values, we can use a variable to store that value
+let age = 19;
+let drink = age > 18 ? 'wine' : 'water';
+console.log(drink);
+
+
+// For the same reason as stated above, we can use the ternary operator inside a template literal
+console.log(`I like to drink ${age > 18 ? "wine" : "water"}`);

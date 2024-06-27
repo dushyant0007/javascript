@@ -3,6 +3,7 @@
 Add 'use strict' at the top of the js file in order to activate strict mode. This stops JS from failing silently,
 and instead generates errors in the console when certain errors occur.
 */
+
 // *********************************************************************************************************************
 // Functions
 // *********************************************************************************************************************
@@ -282,20 +283,28 @@ console.log(`Using function: ${anotherCharlie.calcAge(2020)}`); // Prints: Using
 console.log(`Using property: ${anotherCharlie.age}`); // Prints: Using property: 30
 
 
-// *********************************************************************************************************************
-// For Loop
-// *********************************************************************************************************************
+//!-----------This Keyword---------------------
 
-for (let i = 0;i < 5;i++)
-    console.log(`Hello World! ${i}`);
+//This keyword points to the object which is calling the method
+// Is is the one the three component of any execution context along with variable env and scope chain
+// this is not static . it depends on how the function is called, and its value is only assigned
+// when the function is actually called
 
+// this keyword in global scope is window obj in case of browser
+// and in node.js its a empty obj
+console.log(this);
 
-let t = 0;
-while (t < 5)
-    console.log('T:' + t++)
+function one() {
+  //undefined in browser and global obj in node(whiteout strict mode)
+  console.log("this->", this);
+}
+one();
 
+// this keyword in global scope is window obj in case of browser
+// and in node.js its a empty obj
+// arrow fun don't get there own this keyword
+let two = () => {
+    console.log("this arrow ->", this); // empty obj
+  };
+  two();
 
-do 
-    console.log('Random no. ',Math.random()*4,
-                ', T :',t++);
-  while (t < 10)

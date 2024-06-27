@@ -1,8 +1,5 @@
 
 //Create a date 
-
-const { format } = require("path");
-
 // UTC time -  0 degree longitude - greenwich England
 const now_ = new Date();
 console.log(now_) // now is a object

@@ -1,14 +1,14 @@
-// - JS has First-Class functions that enables us to write Higher-Order functions. But what does this mean?
-// - What does JS having 'First-Class Functions' mean?
-// - It just means that functions are a different 'type' of object in JS. Since objects are values, functions are values too. And since functions are values, they can be stored in variables or even object properties (keys in an object). We have already been doing this so far.
-// - We can also pass functions as args to other functions. We already did that with addEvenListener where we passed in the callback function as an argument .
-// - We can also return a function from another function.
-// - Finally, since functions are objects, and objects can have methods on them, there can also be function methods. bind method is an example of that.
+// JS has First-Class functions that enables us to write Higher-Order functions. But what does this mean?
+// What does JS having 'First-Class Functions' mean?
+// It just means that functions are a different 'type' of object in JS. Since objects are values, functions are values too. And since functions are values, they can be stored in variables or even object properties (keys in an object). We have already been doing this so far.
+// We can also pass functions as args to other functions. We already did that with addEvenListener where we passed in the callback function as an argument .
+// We can also return a function from another function.
+// Finally, since functions are objects, and objects can have methods on them, there can also be function methods. bind method is an example of that.
 
-// - What is a Higher-Order Function then?
-// - A Higher-Order function is either a function that receives a function as an argument, or returns a new function, or both.
-// - addEventListener is an example of a higher-order function because it accepts another function as an arg.
-// - Similarly we can have functions that return other functions.
+// What is a Higher-Order Function then?
+// A Higher-Order function is either a function that receives a function as an argument, or returns a new function, or both.
+// addEventListener is an example of a higher-order function because it accepts another function as an arg.
+// Similarly we can have functions that return other functions.
 
 // ****************************************************************************************
 // Functions accepting Callback Functions
